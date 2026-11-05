@@ -1,0 +1,10 @@
+.addExpenseCard {
+    background-color:gainsboro ;
+    height: 400px;
+    width: 700px;
+    display: none;
+}
+
+.addExpenseCard.show {
+    display: block;
+}

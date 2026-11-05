@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <button id="addExpense">Add expense</button>
+    <div class="addExpenseCard" id="addExpenseCard">
+        <form  id="addExpenseForm" action="" method="">
+        <div class="amount">
+            <label for="amount"></label>
+            <input 
+                type="number"
+                id="amount"
+                name="amount"
+                value="0"
+                min="0"
+                required
+            >
+        </div>
+        <div class="catagory">
+            <label for="catagory">Catagory</label>
+            <select name="catagory" id="catagory">
+                <option value="Food">Food</option>
+                <option value="Travel">Travel</option>
+                <option value="Health">Health</option>
+                <option value="Utilities">Utilities</option>
+                <option value="Other">Other</option>
+            </select>
+        </div>
+        <div class="date">
+            <label for="date"></label>
+            <input type="datetime-local" id="date" name="date">
+        </div>
+        <div class="description">
+            <label for="description">Description</label>
+            <textarea name="description" id="description"rows="3"></textarea>
+        </div>
+         <button type="submit">Submit</button>
+    </form>
+    </div>
+
+     <div class="displayCard">
+        <h6 id="amountValue">No Ammount mention</h6>
+        <h6 id="catagoryValue">No catagory mention</h6>
+        <h6 id="dateValue">No <data value=""></data> mention</h6>
+        <h6 id="descriptionValue">No description mention</h6>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
