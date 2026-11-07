@@ -2,6 +2,7 @@ const addExpense = document.getElementById('addExpense');
 const addExpenseCard = document.getElementById('addExpenseCard');
 const addExpenseForm = document.getElementById('addExpenseForm');
 const dataStore = [];
+const displayCard = document.getElementById('displayCard');
 
 
 
@@ -25,13 +26,24 @@ addExpenseForm.addEventListener('submit' ,(event) =>{
 
     const data = Object.fromEntries(formData.entries());
 
+    const entries = new newEntry(data.amount,data.catagory,data.date,data.description)
+    console.log(entries);
+    
+    dataStore.push(entries)
 
-    dataStore.push(new newEntry(data.amount,data.catagory,data.date,data.description))
+    const newAmount = document.createElement('h6');
+    const newCatagory = document.createElement('h6');
+    const newDate = document.createElement('h6');
+    const newDescription = document.createElement('h6');
 
-    console.log(dataStore);
+    newAmount.innerText = data.amount
+    newCatagory.innerText = data.catagory
+    newDate.innerText = data.date
+    newDescription.innerText = data.description
 
-    document.getElementById("amountValue").innerText = data.amount;
-    document.getElementById("catagoryValue").innerText = data.catagory;
-    document.getElementById("dateValue").innerText = data.date;
-    document.getElementById("descriptionValue").innerText = data.description;
+    displayCard.appendChild(newAmount)
+    displayCard.appendChild(newCatagory)
+    displayCard.appendChild(newDate)
+    displayCard.appendChild(newDescription)
+
 })
