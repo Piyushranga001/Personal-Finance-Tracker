@@ -1,16 +1,36 @@
 const addExpense = document.getElementById('addExpense');
 const addExpenseCard = document.getElementById('addExpenseCard');
-const addExpenseForm = document.getElementById('addExpenseForm');
+const addExpenseForm   = document.getElementById('addExpenseForm') as HTMLFormElement;
 const displayCard = document.getElementById('displayCard');
-const submitBtn = addExpenseForm.querySelector('button[type="submit"]');
 
-let dataStore = [];
-let editId = null; // null = adding new, otherwise the id of the entry being edited
+if(addExpenseForm){
+    const submitBtn : HTMLButtonElement | null = addExpenseForm.querySelector('button[type="submit"]');
+}
+
+
+type dataStoreType = {
+    id? : string
+    amount  : number;
+    catagory : string;
+    date : Date;
+    description : string;
+}
+
+let dataStore : dataStoreType[] = [];
+
+
+let editId : string | null = null; // null = adding new, otherwise the id of the entry being edited
 
 class newEntry {
-    constructor(amount, catagory, date, description) {
+    id : string
+    amount : number
+    catagory : string
+    date : Date
+    description :string
+
+    constructor(id : string,amount : number, catagory : string, date : Date, description :string) {
         this.id = crypto.randomUUID();
-        this.amount = amount;
+        this.amount  = amount;
         this.catagory = catagory;
         this.date = date;
         this.description = description;
@@ -18,7 +38,7 @@ class newEntry {
 }
 
 // Open the form empty, for adding
-addExpense.addEventListener('click', () => {
+addExpense?.addEventListener('click', () => {
     editId = null;
     addExpenseForm.reset();
     submitBtn.innerText = 'Submit';
@@ -26,7 +46,7 @@ addExpense.addEventListener('click', () => {
 });
 
 // Submit: add new OR update existing
-addExpenseForm.addEventListener('submit', (event) => {
+addExpenseForm?.addEventListener('submit', (event) => {
     event.preventDefault();
 
     const data = Object.fromEntries(new FormData(addExpenseForm).entries());
@@ -45,7 +65,7 @@ addExpenseForm.addEventListener('submit', (event) => {
     }
 
     addExpenseForm.reset();
-    addExpenseCard.classList.remove('show');
+    addExpenseCard?.classList.remove('show');
     render();
 });
 
