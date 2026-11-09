@@ -1,18 +1,16 @@
-const addExpense = document.getElementById('addExpense');
-const addExpenseCard = document.getElementById('addExpenseCard');
+const addExpense = document.getElementById('addExpense') as HTMLButtonElement;
+const addExpenseCard = document.getElementById('addExpenseCard') as HTMLBodyElement;
 const addExpenseForm   = document.getElementById('addExpenseForm') as HTMLFormElement;
-const displayCard = document.getElementById('displayCard');
+const displayCard = document.getElementById('displayCard') as HTMLBodyElement
+const submitBtn  = addExpenseForm.querySelector('button[type="submit"]') as HTMLButtonElement;
 
-if(addExpenseForm){
-    const submitBtn : HTMLButtonElement | null = addExpenseForm.querySelector('button[type="submit"]');
-}
 
 
 type dataStoreType = {
     id? : string
     amount  : number;
     catagory : string;
-    date : Date;
+    date : Date ;
     description : string;
 }
 
@@ -53,15 +51,28 @@ addExpenseForm?.addEventListener('submit', (event) => {
 
     if (editId === null) {
         // ADD
-        dataStore.push(new newEntry(data.amount, data.catagory, data.date, data.description));
+        dataStore.push(
+  new newEntry(
+    String(data.id ?? crypto.randomUUID()), // or String(data.id ?? "")
+    Number(data.amount),                    // if amount expects a number (or String(data.amount ?? ""))
+    String(data.catagory ?? ""),
+    new Date(String(data.date ?? "")),
+    String(data.description ?? "")
+  )
+);;
     } else {
         // UPDATE the existing entry (keeps the same id)
+
         const entry = dataStore.find((item) => item.id === editId);
-        entry.amount = data.amount;
-        entry.catagory = data.catagory;
-        entry.date = data.date;
-        entry.description = data.description;
-        editId = null;
+
+        if(entry){
+            entry.amount = Number(data.amount);
+            entry.catagory = String(data.catagory);
+            entry.date = new Date(String(data.date));
+            entry.description = String(data.description);
+            editId = null;
+
+        }
     }
 
     addExpenseForm.reset();
@@ -81,18 +92,19 @@ function render() {
         const newDate = document.createElement('h6');
         const newDescription = document.createElement('h6');
 
-        newAmount.innerText = item.amount;
+        newAmount.innerText = String(item.amount);
         newCatagory.innerText = item.catagory;
-        newDate.innerText = item.date;
+        newDate.innerText = String(item.date);
         newDescription.innerText = item.description;
 
         const editButton = document.createElement('button');
         editButton.innerText = 'Edit';
-        editButton.addEventListener('click', () => startEdit(item.id));
+        editButton.addEventListener('click', () => startEdit(item.id ?? ""));
+
 
         const deleteButton = document.createElement('button');
         deleteButton.innerText = 'Delete';
-        deleteButton.addEventListener('click', () => deleteEntry(item.id));
+        deleteButton.addEventListener('click', () => deleteEntry(item.id ?? ""));
 
         card.append(newAmount, newCatagory, newDate, newDescription, editButton, deleteButton);
         displayCard.appendChild(card);
@@ -100,21 +112,22 @@ function render() {
 }
 
 // Fill the form with this entry's values and show it
-function startEdit(id) {
+function startEdit(id : string) {
     const item = dataStore.find((entry) => entry.id === id);
     editId = id;
-
-    addExpenseForm.elements['amount'].value = item.amount;
-    addExpenseForm.elements['catagory'].value = item.catagory;
-    addExpenseForm.elements['date'].value = item.date;
-    addExpenseForm.elements['description'].value = item.description;
+    if(item){
+        (addExpenseForm.elements.namedItem('amount') as HTMLInputElement).value = String(item.amount);
+        (addExpenseForm.elements.namedItem('catagory') as HTMLInputElement).value = String(item.catagory);
+        (addExpenseForm.elements.namedItem('date') as HTMLInputElement ).value =  item.date.toISOString();
+        (addExpenseForm.elements.namedItem('description') as HTMLInputElement) .value = String(item.description);
+    }
 
     submitBtn.innerText = 'Update';
     addExpenseCard.classList.add('show');
 }
 
 // Remove this entry and redraw
-function deleteEntry(id) {
+function deleteEntry(id : string) {
     dataStore = dataStore.filter((item) => item.id !== id);
 
     if (editId === id) { // deleted the one being edited
