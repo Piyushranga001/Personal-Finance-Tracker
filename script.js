@@ -1,5 +1,3 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 const addExpense = document.getElementById('addExpense');
 const addExpenseCard = document.getElementById('addExpenseCard');
 const addExpenseForm = document.getElementById('addExpenseForm');
@@ -8,11 +6,6 @@ const submitBtn = addExpenseForm.querySelector('button[type="submit"]');
 let dataStore = [];
 let editId = null; // null = adding new, otherwise the id of the entry being edited
 class newEntry {
-    id;
-    amount;
-    catagory;
-    date;
-    description;
     constructor(id, amount, catagory, date, description) {
         this.id = crypto.randomUUID();
         this.amount = amount;
@@ -22,21 +15,22 @@ class newEntry {
     }
 }
 // Open the form empty, for adding
-addExpense?.addEventListener('click', () => {
+addExpense === null || addExpense === void 0 ? void 0 : addExpense.addEventListener('click', () => {
     editId = null;
     addExpenseForm.reset();
     submitBtn.innerText = 'Submit';
     addExpenseCard.classList.toggle('show');
 });
 // Submit: add new OR update existing
-addExpenseForm?.addEventListener('submit', (event) => {
+addExpenseForm === null || addExpenseForm === void 0 ? void 0 : addExpenseForm.addEventListener('submit', (event) => {
+    var _a, _b, _c, _d;
     event.preventDefault();
     const data = Object.fromEntries(new FormData(addExpenseForm).entries());
     if (editId === null) {
         // ADD
-        dataStore.push(new newEntry(String(data.id ?? crypto.randomUUID()), // or String(data.id ?? "")
+        dataStore.push(new newEntry(String((_a = data.id) !== null && _a !== void 0 ? _a : crypto.randomUUID()), // or String(data.id ?? "")
         Number(data.amount), // if amount expects a number (or String(data.amount ?? ""))
-        String(data.catagory ?? ""), new Date(String(data.date ?? "")), String(data.description ?? "")));
+        String((_b = data.catagory) !== null && _b !== void 0 ? _b : ""), new Date(String((_c = data.date) !== null && _c !== void 0 ? _c : "")), String((_d = data.description) !== null && _d !== void 0 ? _d : "")));
         ;
     }
     else {
@@ -51,7 +45,7 @@ addExpenseForm?.addEventListener('submit', (event) => {
         }
     }
     addExpenseForm.reset();
-    addExpenseCard?.classList.remove('show');
+    addExpenseCard === null || addExpenseCard === void 0 ? void 0 : addExpenseCard.classList.remove('show');
     render();
 });
 // Draw every entry from dataStore, each with its own Edit and Delete buttons
@@ -69,10 +63,10 @@ function render() {
         newDescription.innerText = item.description;
         const editButton = document.createElement('button');
         editButton.innerText = 'Edit';
-        editButton.addEventListener('click', () => startEdit(item.id ?? ""));
+        editButton.addEventListener('click', () => { var _a; return startEdit((_a = item.id) !== null && _a !== void 0 ? _a : ""); });
         const deleteButton = document.createElement('button');
         deleteButton.innerText = 'Delete';
-        deleteButton.addEventListener('click', () => deleteEntry(item.id ?? ""));
+        deleteButton.addEventListener('click', () => { var _a; return deleteEntry((_a = item.id) !== null && _a !== void 0 ? _a : ""); });
         card.append(newAmount, newCatagory, newDate, newDescription, editButton, deleteButton);
         displayCard.appendChild(card);
     });
@@ -100,4 +94,5 @@ function deleteEntry(id) {
     }
     render();
 }
+export {};
 //# sourceMappingURL=script.js.map
