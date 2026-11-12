@@ -5,6 +5,45 @@
     display: none;
 }
 
+#addExpenseForm{
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    gap: 20px;
+
+}
+
 .addExpenseCard.show {
     display: block;
+}
+
+#addExpense {
+    background-color: rgb(10, 153, 105);
+    color: white;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+#addExpense img {
+    height: 20px;
+    width: 20px;
+}
+
+#submitBtn{
+    background-color: rgb(10, 153, 105);
+    color: white;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+#displayCard {
+    height: 300px;
+    width: 300px;
+    background-color: gainsboro;
 }
