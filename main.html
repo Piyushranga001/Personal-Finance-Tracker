@@ -7,11 +7,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <button id="addExpense">Add expense</button>
+    <button id="addExpense"> <img src="/plus.png" alt="">Add expense</button>
     <div class="addExpenseCard" id="addExpenseCard">
         <form  id="addExpenseForm" action="" method="">
+        <h3>Add expense</h3>
         <div class="amount">
-            <label for="amount"></label>
+            <label for="amount">Ammount</label>
             <input 
                 type="number"
                 id="amount"
@@ -32,14 +33,14 @@
             </select>
         </div>
         <div class="date">
-            <label for="date"></label>
+            <label for="date">Date</label>
             <input type="datetime-local" id="date" name="date">
         </div>
         <div class="description">
             <label for="description">Description</label>
             <textarea name="description" id="description"rows="3"></textarea>
         </div>
-         <button type="submit">Submit</button>
+         <button id="submitBtn" type="submit">Submit</button>
     </form>
     </div>
 
